@@ -1,0 +1,78 @@
+
+Query 1 (SELECT, WHERE, ORDER BY, LIMIT)
+SQL:
+SELECT title, price_inr, rating 
+            FROM books 
+            WHERE in_stock = 1 
+            ORDER BY price_inr DESC 
+            LIMIT 5;
+
+Result:
+                                                                                                                          title  price_inr  rating
+                                                                                   The Death of Humanity: and the Case for Life    6130.60       4
+                                                                                                 Slow States of Collapse: Poems    6046.20       3
+                                             Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991    6039.88       3
+                                                                                                            The Past Never Ends    5960.75       4
+The Pioneer Woman Cooks: Dinnertime: Comfort Classics, Freezer Food, 16-Minute Meals, and Other Delicious Ways to Solve Supper!    5951.25       1
+
+Query 2 (DISTINCT)
+SQL:
+SELECT DISTINCT rating 
+            FROM books 
+            ORDER BY rating ASC;
+
+Result:
+ rating
+      1
+      2
+      3
+      4
+      5
+
+Query 3 (BETWEEN)
+SQL:
+SELECT title, price_gbp 
+            FROM books 
+            WHERE price_gbp BETWEEN 20.00 AND 30.00 
+            ORDER BY price_gbp ASC 
+            LIMIT 5;
+
+Result:
+                                                                                                      title  price_gbp
+                         The Inefficiency Assassin: Time Management Tactics for Working Smarter, Not Longer      20.59
+                                                                                      Shakespeare's Sonnets      20.66
+America's Cradle of Quarterbacks: Western Pennsylvania's Football Factory from Johnny Unitas to Joe Montana      22.50
+             The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics      22.60
+                                                                                            The Requiem Red      22.65
+
+Query 4 (IN)
+SQL:
+SELECT title, rating 
+            FROM books 
+            WHERE rating IN (1, 5) 
+            LIMIT 5;
+
+Result:
+                                title  rating
+                   Tipping the Velvet       1
+                           Soumission       1
+Sapiens: A Brief History of Humankind       5
+                      The Requiem Red       1
+                      The Black Maria       1
+
+Query 5 (JOIN - Top rated books per category)
+SQL:
+SELECT b.title, c.category_name, b.rating, b.price_inr
+            FROM books b
+            JOIN categories c ON b.category_id = c.category_id
+            WHERE b.rating = 5
+            ORDER BY c.category_name ASC, b.price_inr DESC
+            LIMIT 5;
+
+Result:
+                                                                             title category_name  rating  price_inr
+The Inefficiency Assassin: Time Management Tactics for Working Smarter, Not Longer       Default       5    2172.24
+                                                      We Love You, Charlie Freeman       Fiction       5    5303.48
+                                                       Private Paris (Private #10)       Fiction       5    5022.85
+                                                                            Thirst       Fiction       5    1821.98
+                                             Sapiens: A Brief History of Humankind       History       5    5721.26
